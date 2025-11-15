@@ -27,3 +27,8 @@ variable "admin_username" {
     default     = "azureuser"
   
 }
+
+variable "tenant_id" {
+  description = "Azure AD tenant ID used for Key Vault and other resources."
+  type        = string
+}

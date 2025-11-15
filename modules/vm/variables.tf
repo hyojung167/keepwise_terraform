@@ -63,3 +63,9 @@ variable "project_name" {
     type        = string
     default = "infrastudy"
 }
+
+variable "public_lp_id" {
+  description = "Public IP address ID to associate with the VM's network interface."
+  type        = string
+  default = null
+}

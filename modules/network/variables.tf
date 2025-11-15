@@ -28,6 +28,6 @@ variable "subnets" {
   description = "생성할 서브넷 목록"
   type = list(object({
     name           = string
-    address_prefixes = list(string)
+    address_prefixes = list(string), public = bool
   }))
 }

@@ -21,6 +21,43 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 }
 
+# Private DNS zones for private endpoints
+resource "azurerm_private_dns_zone" "cosmos" {
+  name                = "privatelink.documents.azure.com"
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource "azurerm_private_dns_zone" "blob" {
+  name                = "privatelink.blob.core.windows.net"
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource "azurerm_private_dns_zone" "openai" {
+  name                = "privatelink.openai.azure.com"
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "cosmos_link" {
+  name                  = "cosmos-dns-link"
+  resource_group_name   = azurerm_resource_group.rg.name
+  private_dns_zone_name = azurerm_private_dns_zone.cosmos.name
+  virtual_network_id    = module.network.vnet_id
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "blob_link" {
+  name                  = "blob-dns-link"
+  resource_group_name   = azurerm_resource_group.rg.name
+  private_dns_zone_name = azurerm_private_dns_zone.blob.name
+  virtual_network_id    = module.network.vnet_id
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "openai_link" {
+  name                  = "openai-dns-link"
+  resource_group_name   = azurerm_resource_group.rg.name
+  private_dns_zone_name = azurerm_private_dns_zone.openai.name
+  virtual_network_id    = module.network.vnet_id
+}
+
 module "network" {
   source              = "./modules/network"
 
@@ -31,17 +68,30 @@ module "network" {
 
 subnets = [
     {
-      name             = "subnet-web"
+      name             = "subnet-agw"
       address_prefixes = ["10.0.1.0/24"]
+      public = true
     },
     {
-      name             = "subnet-app"
+      name             = "subnet-web"
       address_prefixes = ["10.0.2.0/24"]
+      public = false
+    },
+    {
+      name             = "subnet-was"
+      address_prefixes = ["10.0.3.0/24"]
+      public = false
     },
     {
       name             = "subnet-db"
-      address_prefixes = ["10.0.3.0/24"]
-    }
+      address_prefixes = ["10.0.4.0/24"]
+      public = false
+    },
+    {
+      name             = "subnet-openai"
+      address_prefixes = ["10.0.5.0/24"]
+      public = false
+      }
   ]
 }
 
@@ -58,7 +108,53 @@ module "vm" {
   project_name        = var.project_name
   admin_username      = var.admin_username
   ssh_public_key      = file(var.ssh_public_key)
-  subnet_id = module.network.subnet_ids["subnet-web"]
-  nsg_id    = lookup(module.network.nsg_ids, "subnet-web", null)
-  
+  subnet_id = module.network.subnet_ids["subnet-agw"]
+  nsg_id    = lookup(module.network.nsg_ids, "subnet-agw", null)
+  create_public_ip = true
+}
+
+
+module "agw" {
+  source              = "./modules/agw"
+
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+
+  project_name = var.project_name
+  subnet_id    = module.network.subnet_ids["subnet-agw"]
+}
+
+
+module "db" {
+  source              = "./modules/db"
+
+  resource_group_name        = azurerm_resource_group.rg.name
+  location                   = azurerm_resource_group.rg.location
+  project_name               = var.project_name
+  subnet_id                  = module.network.subnet_ids["subnet-db"]
+  cosmos_private_dns_zone_id = azurerm_private_dns_zone.cosmos.id
+  blob_private_dns_zone_id   = azurerm_private_dns_zone.blob.id
+}
+
+module "security" {
+  source              = "./modules/security"
+
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+
+  project_name = var.project_name
+  tenant_id    = var.tenant_id
+  managed_identity_name = "managed-${var.project_name}-identity"
+}
+
+module "openai" {
+  source              = "./modules/openai"
+
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+
+  project_name                = var.project_name
+  subnet_id                   = module.network.subnet_ids["subnet-openai"]
+  openai_private_dns_zone_id  = azurerm_private_dns_zone.openai.id
+  openai_name                 = "openai-${var.project_name}"
 }
