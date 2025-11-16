@@ -1,7 +1,6 @@
 # Keepwise 
 > gpt -- 기반 정보 자동 아카이빙 서비스
 
-### 📦 DevOps & Automation (Badges)
 ![Terraform](https://img.shields.io/badge/Terraform-7B42BC?logo=terraform&logoColor=white)
 ![Azure](https://img.shields.io/badge/Azure-0078D4?logo=microsoftazure&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?logo=githubactions&logoColor=white)
