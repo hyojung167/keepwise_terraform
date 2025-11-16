@@ -1,5 +1,6 @@
 # Keepwise 
 > gpt -- 기반 정보 자동 아카이빙 서비스
+
 ![Azure](https://img.shields.io/badge/Microsoft%20Azure-0078D4?style=for-the-badge&logo=microsoft-azure&logoColor=white)
 
 ## 프로그램 구조도
