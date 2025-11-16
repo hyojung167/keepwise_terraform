@@ -54,6 +54,7 @@ resource "azurerm_application_gateway" "agw" {
         timeout             = 30
         unhealthy_threshold = 3
         port                = 80
+        pick_host_name_from_backend_http_settings = true
     }
 
     http_listener {
@@ -69,5 +70,6 @@ resource "azurerm_application_gateway" "agw" {
         http_listener_name         = "agw-http-listener"
         backend_address_pool_name  = "agw-backend-pool"
         backend_http_settings_name = "agw-backend-http"
+        priority                   = 100
     } 
 }

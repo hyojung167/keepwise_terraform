@@ -108,8 +108,8 @@ module "vm" {
   project_name        = var.project_name
   admin_username      = var.admin_username
   ssh_public_key      = file(var.ssh_public_key)
-  subnet_id = module.network.subnet_ids["subnet-agw"]
-  nsg_id    = lookup(module.network.nsg_ids, "subnet-agw", null)
+  subnet_id = module.network.subnet_ids["subnet-web"]
+  nsg_id    = lookup(module.network.nsg_ids, "subnet-web", null)
   create_public_ip = true
 }
 
