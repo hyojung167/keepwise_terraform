@@ -7,10 +7,13 @@
 ![Linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)
 
 <br>
+
 ## 프로그램 구조도
 <img width="1547" height="666" alt="Items" src="https://github.com/user-attachments/assets/07d326ad-9098-4231-abb8-cbfd7086c42d" />
+
 <br>
 <br>
+
 ## 주요 기능  
 Azure 및 Open AI를 활용해 정보를 수집과 동시에 요약·분류·태그화하고, 사용자가 원하는 정보를 필요 시점에 쉽게 찾아 활용
 #### 1. 정보 수집 및 자동 업로드
@@ -25,15 +28,19 @@ Azure 및 Open AI를 활용해 정보를 수집과 동시에 요약·분류·태
     - 태그 생성 
 #### 4. 분류 기준에 맞게 데이터 저장
 #### 5. 정보 검색 및 재활용
-#### 6. 사용자 설정 및 피드백 학습  
+#### 6. 사용자 설정 및 피드백 학습 
+
 <br>
+
 ### 수집 데이터 유형
 - 스크린샷 → OCR로 텍스트 인식(Naver CLOVA OCR)
 - 뉴스레터 → 이메일 연동(IMAP)
 - 유튜브 동영상 → 동영상 – 음성 – 텍스트 변환 (pytube, ffmpeg, whisper)
-- 웹페이지 → html parsing (Request,BeautifulSoup, html2text)  
+- 웹페이지 → html parsing (Request,BeautifulSoup, html2text)
+  
 <br>
 <br>
+
 ## Terraform 코드 구조
 ```
 ├── main.tf              # 메인 설정
@@ -49,9 +56,11 @@ Azure 및 Open AI를 활용해 정보를 수집과 동시에 요약·분류·태
     ├── openai/          # Openai 모듈
     ├── security/        # Security 모듈
     └── vm/              # Virtual Machine 모듈
-```  
+```
+
 <br>
 <br>
+
 ## 배포 방법
 ```bash
 # 초기화
