@@ -24,13 +24,13 @@ Azure 및 Open AI를 활용해 정보를 수집과 동시에 요약·분류·태
     - 태그 생성 
 #### 4. 분류 기준에 맞게 데이터 저장
 #### 5. 정보 검색 및 재활용
-#### 6. 사용자 설정 및 피드백 학습
+#### 6. 사용자 설정 및 피드백 학습  
 
 ### 수집 데이터 유형
 - 스크린샷 → OCR로 텍스트 인식(Naver CLOVA OCR)
 - 뉴스레터 → 이메일 연동(IMAP)
 - 유튜브 동영상 → 동영상 – 음성 – 텍스트 변환 (pytube, ffmpeg, whisper)
-- 웹페이지 → html parsing (Request,BeautifulSoup, html2text)
+- 웹페이지 → html parsing (Request,BeautifulSoup, html2text)  
 
 
 ## Terraform 코드 구조
@@ -48,7 +48,7 @@ Azure 및 Open AI를 활용해 정보를 수집과 동시에 요약·분류·태
     ├── openai/          # Openai 모듈
     ├── security/        # Security 모듈
     └── vm/              # Virtual Machine 모듈
-```
+```  
 
 
 ## 배포 방법
