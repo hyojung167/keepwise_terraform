@@ -29,3 +29,29 @@ Azure 및 Open AI를 활용해 정보를 수집과 동시에 요약·분류·태
 - 뉴스레터 → 이메일 연동(IMAP)
 - 유튜브 동영상 → 동영상 – 음성 – 텍스트 변환 (pytube, ffmpeg, whisper)
 - 웹페이지 → html parsing (Request,BeautifulSoup, html2text)
+
+## Terraform 코드 구조
+```
+├── main.tf              # 메인 설정
+├── variables.tf         # 변수 정의
+├── outputs.tf           # 출력값
+├── backend.tf           # State 원격 저장
+└── modules/
+    ├── network/         # Network 모듈
+    ├── network/         # Network 모듈
+    ├── network/         # Network 모듈
+    └── db/              # Storage 모듈
+```
+
+## 배포 방법
+### 🚀 배포 방법
+```bash
+# 초기화
+terraform init
+
+# 계획 확인
+terraform plan
+
+# 배포
+terraform apply
+```
