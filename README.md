@@ -44,7 +44,6 @@ Azure 및 Open AI를 활용해 정보를 수집과 동시에 요약·분류·태
 ```
 
 ## 배포 방법
-### 🚀 배포 방법
 ```bash
 # 초기화
 terraform init
