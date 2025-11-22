@@ -37,10 +37,14 @@ Azure 및 Open AI를 활용해 정보를 수집과 동시에 요약·분류·태
 ├── outputs.tf           # 출력값
 ├── backend.tf           # State 원격 저장
 └── modules/
+    ├── agw/             # Application Gateway 모듈
+    ├── apim/            # API Management 모듈
+    ├── db/              # Storage 모듈
+    ├── function/        # Function 모듈
     ├── network/         # Network 모듈
-    ├── network/         # Network 모듈
-    ├── network/         # Network 모듈
-    └── db/              # Storage 모듈
+    ├── openai/          # Openai 모듈
+    ├── security/        # Security 모듈
+    └── vm/              # Virtual Machine 모듈
 ```
 
 ## 배포 방법
