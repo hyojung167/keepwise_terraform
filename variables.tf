@@ -12,7 +12,7 @@ variable "location" {
 variable "project_name" {
     description = "The name of the project"
     type = string
-    default = "infrastudy"
+    default = "keepwise"
   
 }
 
@@ -32,3 +32,11 @@ variable "tenant_id" {
   description = "Azure AD tenant ID used for Key Vault and other resources."
   type        = string
 }
+
+variable "tags" {
+  description = "Common tags applied to all resources."
+  type        = map(string)
+  default     = {}
+}
+
+

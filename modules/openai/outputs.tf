@@ -8,12 +8,12 @@ output "cognitive_account_endpoint" {
   value       = azurerm_cognitive_account.openai.endpoint
 }
 
-/*
+
 output "private_endpoint_id" {
   description = "Private endpoint resource ID for Azure OpenAI"
   value       = azurerm_private_endpoint.openai_pe.id
 }
-*/
+
 
 output "primary_access_key" {
   description = "Primary access key for Azure OpenAI (use carefully)"

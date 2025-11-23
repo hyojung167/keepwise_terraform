@@ -25,7 +25,7 @@ variable "create_nsg" {
 }
 
 variable "subnets" {
-  description = "생성할 서브넷 목록"
+  description = "A list of subnets to create in the virtual network"
   type = list(object({
     name           = string
     address_prefixes = list(string), public = bool

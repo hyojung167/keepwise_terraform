@@ -1,5 +1,5 @@
 resource "azurerm_cosmosdb_account" "cosmos_account" {
-  name                = "cosmos-${var.project_name}"
+  name                = "cosmos-account-${var.project_name}"
   location            = var.location
   resource_group_name = var.resource_group_name
   offer_type          = var.cosmos_offer_type
@@ -16,14 +16,14 @@ resource "azurerm_cosmosdb_account" "cosmos_account" {
 }
 
 resource "azurerm_cosmosdb_sql_database" "cosmos_database" {
-  name                = "db-${var.project_name}"
+  name                = "cosmos-db-${var.project_name}"
   resource_group_name = var.resource_group_name
   account_name        = azurerm_cosmosdb_account.cosmos_account.name
   throughput          = 400
 }
 
 resource "azurerm_cosmosdb_sql_container" "cosmos_container" {
-  name                = "container-${var.project_name}"
+  name                = "cosmos-container-${var.project_name}"
   resource_group_name = var.resource_group_name
   account_name        = azurerm_cosmosdb_account.cosmos_account.name
   database_name       = azurerm_cosmosdb_sql_database.cosmos_database.name
@@ -31,7 +31,7 @@ resource "azurerm_cosmosdb_sql_container" "cosmos_container" {
 }
 
 resource "azurerm_storage_account" "storage_account" {
-  name                     = lower(replace("st${var.project_name}", "-", ""))
+  name                     = lower(replace("storage-account-${var.project_name}", "-", ""))
   resource_group_name      = var.resource_group_name
   location                 = var.location
   account_tier             = var.storage_account_tier
@@ -39,7 +39,7 @@ resource "azurerm_storage_account" "storage_account" {
 }
 
 resource "azurerm_storage_container" "storage_container" {
-  name                  = "blob-${var.project_name}"
+  name                  = "blob-container-${var.project_name}"
   storage_account_id    = azurerm_storage_account.storage_account.id
   container_access_type = "private"
 }

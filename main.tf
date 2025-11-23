@@ -158,3 +158,29 @@ module "openai" {
   openai_private_dns_zone_id  = azurerm_private_dns_zone.openai.id
   openai_name                 = "openai-${var.project_name}"
 }
+
+module "function" {
+  source              = "./modules/function"
+
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+
+  project_name = var.project_name
+
+  log_analytics_workspace_name = "law-${var.project_name}"
+  log_analytics_retention_in_days = 30
+
+  storage_account_name       = module.db.storage_account_name
+  storage_account_primary_access_key = module.db.storage_account_primary_access_key
+
+  
+}
+
+module "apim" {
+  source              = "./modules/apim"
+
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+
+  project_name     = var.project_name
+}

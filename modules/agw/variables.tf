@@ -23,7 +23,7 @@ variable "project_name" {
 variable "sku_name" {
     description = "The SKU name for the Application Gateway"
     type = string
-    default = "Standard_v2"
+    default = "Standard_v1"
 }
 
 variable "capacity" {

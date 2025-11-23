@@ -12,9 +12,9 @@ resource "azurerm_application_gateway" "agw" {
     resource_group_name = var.resource_group_name
     
     sku {
-        name     = var.sku_name
-        tier     = var.sku_name
-        capacity = var.capacity
+        name     = "Standard_Small"
+        tier     = "Standard"
+        capacity = 2
     }
     
     gateway_ip_configuration {

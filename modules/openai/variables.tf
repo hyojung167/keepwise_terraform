@@ -14,7 +14,7 @@ variable "project_name" {
 }
 
 variable "subnet_id" {
-    description = "private endpoint이 생성될 subnet의 ID"
+    description = "The ID of the subnet where the private endpoint of openai will be deployed."
     type        = string
 }
 

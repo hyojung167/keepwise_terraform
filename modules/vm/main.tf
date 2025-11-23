@@ -22,6 +22,8 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_network_interface_security_group_association" "nsg_association" {
+  count = var.nsg_id == null ? 0 : 1  # nsg_id가 제공된 경우에만 nic과 nsg 연결
+
   network_interface_id      = azurerm_network_interface.nic.id
   network_security_group_id = var.nsg_id
 }

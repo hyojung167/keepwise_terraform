@@ -12,10 +12,13 @@ resource "azurerm_key_vault" "key_vault" {
   tenant_id                   = var.tenant_id
   purge_protection_enabled    = false
   soft_delete_retention_days  = 7
+  enable_rbac_authorization = true
 
-  access_policy {
-    tenant_id = var.tenant_id
-    object_id = azurerm_user_assigned_identity.managed_identity.principal_id 
-    }
+}
+
+resource "azurerm_role_assignment" "kv_secrets_user" {
+  scope                = azurerm_key_vault.key_vault.id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = azurerm_user_assigned_identity.managed_identity.principal_id
 }
 
